@@ -101,6 +101,10 @@ app.get("/api/health", async (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/cities", cityRoutes);
 app.use("/api/plans", planRoutes);
+/* ---------- 404 & error handler ---------- */
+app.use((req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
 
 /* ---------- Auto-clear every 2 hours (optional) ---------- */
 const CLEAR_INTERVAL_MS = 2 * 60 * 60 * 1000;
