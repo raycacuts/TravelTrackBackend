@@ -1,44 +1,23 @@
-name: Deploy Backend to Azure (Publish profile, ships node_modules)
+name: Deploy Backend to Azure App Service
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: traveltrackbackend
-  NODE_VERSION: "20"
+    branches: [ main ]  # deploy whenever main branch is updated
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Use Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: server/package-lock.json
+      # Tell workflow your backend folder
+      - name: Set working dir
+        run: echo "WORKDIR=server" >> $GITHUB_ENV
 
-      - name: Install production dependencies
-        working-directory: server
-        run: npm ci --omit=dev
-
-      # Zip EVERYTHING in server/, INCLUDING node_modules
-      - name: Create zip with node_modules
-        run: |
-          cd server
-          zip -r ../api.zip . -x ".git/*"
-          cd ..
-        shell: bash
-
+      # Deploy backend folder to Azure — Oryx will run npm install there
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: api.zip
+          app-name: traveltrackbackend-hpbvabgvcqbkdpcm
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: ${{ env.WORKDIR }}
