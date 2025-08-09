@@ -1,3 +1,4 @@
+Track places you've been and spots you want to go. Works with a React frontend and Node.js backend.
 
 ## Features
 - Log visited cities and planned trips
@@ -7,8 +8,8 @@
 
 ## Live Demo
 - **Frontend:** [https://witty-dune-0cb8be810.2.azurestaticapps.net](https://witty-dune-0cb8be810.2.azurestaticapps.net)
-- **Frontend GitHub:** [https://github.com/raycacuts/TravelTrack/tree/main]
-- **Backend GitHub:** [https://github.com/raycacuts/TravelTrackBackend]
+- **Frontend GitHub:** [https://github.com/raycacuts/TravelTrack/tree/main](https://github.com/raycacuts/TravelTrack/tree/main)
+- **Backend GitHub:** [https://github.com/raycacuts/TravelTrackBackend](https://github.com/raycacuts/TravelTrackBackend)
 
 ## Tech
 **Frontend**
@@ -30,10 +31,10 @@
 ```bash
 cd server
 npm install
-# make a .env file
+# create .env
 PORT=8080
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_secret
+MONGODB_URI=<your_mongodb_uri>
+JWT_SECRET=<your_secret>
 CORS_ORIGINS=http://localhost:5173
 UPLOAD_DIR=uploads
 npm run dev
